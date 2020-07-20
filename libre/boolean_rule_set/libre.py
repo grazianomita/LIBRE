@@ -586,8 +586,12 @@ class LIBRE:
 					print("\tF" + str(j) + ' IN:')
 				else:
 					print("\t" + self.feature_names[j] + ' IN:')
-			for range_element in feature_element:
-				print("\t\t(" + str(range_element[0]) + ', ' + str(range_element[1]) + ')')
+			if self.categorical[j] == False:
+				for range_element in feature_element:
+					print("\t\t[" + str(range_element[0]) + ', ' + str(range_element[1]) + ')')
+			else:
+				for range_element in feature_element:
+					print("\t\t{" + str(range_element[0]) + '}')
 
 	def get_boundary(self):
 		'''

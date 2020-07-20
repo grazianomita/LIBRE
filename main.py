@@ -115,29 +115,24 @@ def run():
 	
 	rule_set = model.get_rule_set()
 	num_rules, atom_list = compute_num_rules_and_atoms(rule_set)
+	
+	print("Full set of rules")
+	print("-----------------")
+	model.print_rule_set()
+	print()
+	
 	for pred_rules in range(1, max_pred_rules+1):
 		predictions, _ = model.predict(x_test, top=pred_rules)
-		accuracy = accuracy_score(y_test, predictions)
-		f1score = f1_score(y_test, predictions)
-		precision = precision_score(y_test, predictions)
-		recall = recall_score(y_test, predictions, pos_label=1)
-		tnr = recall_score(y_test, predictions, pos_label=0)
-		num_rules = pred_rules if num_rules >= pred_rules else num_rules
-		num_atoms = np.mean(atom_list[:pred_rules])
-		print('> test_accuracy: {:02.2f}'.format(accuracy))
-		print('> test_f1score: {:02.2f}'.format(f1score))
-		print('> test_precision: {:02.2f}'.format(precision))
-		print('> test_recall: {:02.2f}'.format(recall))
-		print('> test_tnr: {:02.2f}'.format(tnr))
+		print('> test_accuracy: {:02.2f}'.format(accuracy_score(y_test, predictions)))
+		print('> test_f1score: {:02.2f}'.format(f1_score(y_test, predictions)))
+		print('> test_precision: {:02.2f}'.format(precision_score(y_test, predictions)))
+		print('> test_recall: {:02.2f}'.format(recall_score(y_test, predictions, pos_label=1)))
+		print('> test_tnr: {:02.2f}'.format(recall_score(y_test, predictions, pos_label=0)))
 		print('> test_num_rules: {}'.format(pred_rules))
-		print('> test_num_atoms: {}'.format(num_atoms))
+		print('> test_num_atoms: {}'.format(np.mean(atom_list[:pred_rules])))
 		print()
 
 
 random.seed(seed)
 np.random.seed(seed)
 run()
-
-
-
-
